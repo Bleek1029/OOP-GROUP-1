@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-beige: #FBF0E6;
+  --accent-brown: #000000;
+  --accent-yellow: #F6C84C;
+  --accent-blue: #3DA9DD;
+  --card-back: #EADFC9;
+  --card-front-bg: #FFFFFF;
+  --card-border: #3E2F2A;
+  --card-shadow: rgba(62,47,42,0.12);
+  --player-turn: #3b82f6;
+}
+
+body {
+  font-family: 'Cinzel', serif;
+  background-color: var(--bg-beige);
+  color: var(--accent-brown);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  margin: 0;
+  
+  /* FIXED: Use forward slashes relative to this CSS file */
+  background-image: url('images/med.jpg');
+  
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 450px;
+  padding: 2.5rem;
+  background-color: rgba(251, 240, 230, 0.85);
+  border: 3px solid var(--accent-yellow);
+  border-radius: 1rem;
+  box-shadow: 0 0 30px rgba(246, 200, 76, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--accent-brown);
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(246, 200, 76, 0.5);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--accent-blue);
+  border-radius: 0.5rem;
+  background-color: var(--card-back);
+  color: var(--accent-brown);
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 10px rgba(246, 200, 76, 0.5);
+}
+
+.btn-primary {
+  background-color: var(--accent-blue);
+  color: white;
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #60a5fa;
+  transform: translateY(-2px);
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.alert-danger {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border: 1px solid #ef4444;
+}
+
+.alert-success {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border: 1px solid #10b981;
+}
+
+.form-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.form-link a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.form-link a:hover {
+  color: #60a5fa;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--accent-blue);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: 'Cinzel', serif;
+  text-transform: uppercase;
+}

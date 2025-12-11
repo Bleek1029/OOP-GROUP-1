@@ -1,0 +1,392 @@
+/* --- RESET & ATMOSPHERE --- */
+:root {
+    --gold-primary: #C09852;
+    --gold-light: #ffd700;
+    --gold-dark: #8a6e3c;
+    --dark-green: #0f1210;
+    --field-bg: rgba(0, 0, 0, 0.4);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cinzel', serif;
+}
+
+body {
+    background-color: var(--dark-green);
+    overflow: hidden; /* Prevent scrollbars */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e0e0d1;
+    position: relative;
+}
+
+/* Animated Background Layer */
+.bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.6)),
+        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2568&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+    filter: blur(2px);
+    transform: scale(1.1); /* Initial scale allows for parallax movement */
+    transition: transform 0.1s ease-out;
+}
+
+#background-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    filter: blur(2px);
+}
+
+
+/* Canvas for Falling Fire */
+#fireCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* --- THE FORM CONTAINER (Obsidian Glass) --- */
+.container {
+    background: rgba(20, 24, 20, 0.9);
+    border: 1px solid #4a5c4a;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(192, 152, 82, 0.1);
+    padding: 3.5rem 2.5rem 2.5rem;
+    width: 440px;
+    max-width: 90%;
+    border-radius: 4px;
+    position: relative;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    transition: transform 0.1s ease-out;
+}
+
+/* Golden Borders */
+.container::before, .container::after {
+    content: '';
+    position: absolute;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold-primary), var(--gold-dark), transparent);
+    box-shadow: 0 0 5px var(--gold-dark);
+}
+.container::before { top: 0; }
+.container::after { bottom: 0; }
+
+/* Ornaments */
+.ornament {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #5c6b5c;
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+.top-left { top: -1px; left: -1px; border-right: none; border-bottom: none; border-radius: 4px 0 0 0; }
+.top-right { top: -1px; right: -1px; border-left: none; border-bottom: none; border-radius: 0 4px 0 0; }
+.bottom-left { bottom: -1px; left: -1px; border-right: none; border-top: none; border-radius: 0 0 0 4px; }
+.bottom-right { bottom: -1px; right: -1px; border-left: none; border-top: none; border-radius: 0 0 4px 0; }
+
+.container:hover .ornament {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 10px rgba(192, 152, 82, 0.4);
+}
+
+/* --- TYPOGRAPHY --- */
+h1 {
+    font-family: 'Cinzel Decorative', serif;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: linear-gradient(to bottom, #fff0c4 0%, #d4af37 50%, #996515 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+    position: relative;
+    z-index: 1;
+}
+
+p.subtitle {
+    text-align: center;
+    color: #8f9e8f;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(143, 158, 143, 0.1);
+    padding-bottom: 1rem;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+    min-height: 2em; /* Prevent jump on text change */
+}
+
+/* --- INPUT FIELDS & ICONS --- */
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.icon-wrapper {
+    position: absolute;
+    left: 15px;
+    top: 42px; /* Adjusted for label */
+    color: #5c6b5c;
+    transition: color 0.3s ease;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    color: #8f9e8f;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    background: var(--field-bg);
+    border: 1px solid #4a5c4a;
+    border-radius: 2px;
+    padding: 12px 15px 12px 45px; /* Padding for icon */
+    color: #e0e0d1;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 15px rgba(192, 152, 82, 0.2);
+}
+
+input:focus + .icon-wrapper {
+    color: var(--gold-primary);
+}
+
+/* --- BUTTONS & LINKS --- */
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, var(--gold-dark), var(--gold-primary), var(--gold-dark));
+    background-size: 200% 100%;
+    border: 1px solid var(--gold-dark);
+    border-radius: 2px;
+    color: #0f1210;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-top: 1rem;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.btn-primary:hover {
+    background-position: 100% 0;
+    color: white;
+    border-color: var(--gold-light);
+    box-shadow: 0 0 30px rgba(192, 152, 82, 0.5);
+}
+
+.form-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.form-link a {
+    color: var(--gold-primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.form-link a:hover {
+    color: var(--gold-light);
+    text-shadow: 0 0 5px var(--gold-light);
+}
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: #f8d7da;
+    background-color: #721c24;
+    border-color: #f5c6cb;
+}
+
+
+.form-link a:hover {
+    color: var(--gold-light);
+    text-shadow: 0 0 5px var(--gold-light);
+}
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: #f8d7da;
+    background-color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Account Switcher Styles */
+.account-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border: 1px solid #4a5c4a;
+    border-radius: 2px;
+    text-decoration: none;
+    color: inherit;
+    background: var(--field-bg);
+    transition: all 0.3s ease;
+}
+
+.account-item:hover {
+    border-color: var(--gold-primary);
+    background: rgba(0,0,0,0.6);
+}
+
+.account-item .account-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--gold-dark), var(--gold-primary));
+    color: #0f1210;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: bold;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.user-info {
+    text-align: left;
+    overflow: hidden;
+}
+
+.user-info .name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e0e0d1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-info .email {
+    font-size: 0.875rem;
+    color: #8f9e8f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.remove-form {
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #8f9e8f;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    transition: color 0.3s;
+}
+
+.remove-btn:hover {
+    color: #f87171;
+}
+
+.account-item.add-account {
+    color: #8f9e8f;
+    justify-content: flex-start;
+    background-color: transparent;
+    border-style: dashed;
+}
+
+.account-item.add-account .avatar.add-icon {
+    background: transparent;
+    border: 2px solid var(--gold-primary);
+    color: var(--gold-primary);
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.account-item.add-account:hover {
+    color: #e0e0d1;
+    border-color: var(--gold-primary);
+}
+
+.account-item.add-account .name {
+    color: #8f9e8f;
+    transition: color 0.3s;
+}
+
+.account-item.add-account:hover .name {
+    color: #e0e0d1;
+}

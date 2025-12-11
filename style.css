@@ -1,0 +1,277 @@
+body {
+    font-family: sans-serif;
+    background-image: url('BG/Background2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h2 {
+    text-shadow: 2px 2px 4px #000;
+}
+
+#player1-heading {
+    color: #418FAB;
+}
+
+#player2-heading {
+    color: #ffcc00;
+}
+
+.game-container {
+    display: flex;
+    gap: 200px;
+    margin-bottom: 100px;
+}
+
+.player-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 0.5s;
+}
+
+.player-container.inactive {
+    opacity: 0.5;
+}
+
+.health-bar-container {
+    width: 500px;
+    height: 25px;
+    background-image: url(ASSETS/healthbar-behind.png);
+    background-position: center;
+    background-repeat: repeat;
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin-bottom: 90px;
+}
+
+.health-bar {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+#player1-health {
+    background-image: url('ASSETS/p1-healthbar-pixelated.gif');
+    background-size: cover;
+    box-shadow: 0 0 5px #418FAB, 0 0 10px #418FAB, 0 0 15px #418FAB, 0 0 20px #418FAB;
+}
+
+#player2-health {
+    background-image: url('ASSETS/p2-healthbar-pixelated.gif');
+    background-size: cover;
+    box-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00, 0 0 15px #ffcc00, 0 0 20px #ffcc00;
+}
+
+#player1-grid-border, #player2-grid-border {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.grid-wrapper {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#player1-grid-border {
+    top: -42.7px;
+    left: -26px;
+    width: 490px;
+    height: 490px;
+    background-size: 100% 108%;
+    background-image: url('GRID BORDER/PLAYER1.png');
+}
+
+#player2-grid-border {
+    top: -36px;
+    left: -26px;
+    width: 490px;
+    height: 490px;
+    background-size: 102% 110%;
+    background-image: url('GRID BORDER/PLAYER2.png');
+}
+
+.grid-container {
+    background-image: url(BG/stone-test.png);
+    display: grid;
+    grid-template-columns: repeat(4, 90px);
+    grid-template-rows: repeat(4, 90px);
+    gap: 7px;
+    padding: 15px;
+    transition: background-color 0.5s;
+}
+
+#player1-grid {
+    background-color: #3E637D;
+}
+
+#player2-grid {
+    background-color: rgb(147, 130, 73);
+}
+
+.player-container.inactive .grid-container {
+    background-color: #555;
+}
+
+.card {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.card .front {
+    position: absolute;
+    width: 100%;
+    height: 100.4%;
+    align-items: center;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    transform: rotateY(180deg);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+}
+
+.card .back {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    left: -8px;
+    bottom: -9px;
+    align-items: center;
+    backface-visibility: hidden;
+    border-radius: 8px;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+#player1-container .card {
+    border-radius: 100px;
+    box-shadow: 0px -0px 10px 6px rgba(19, 170, 190, 0.788);
+}
+
+#player2-container .card {
+    border-radius: 100px;
+    box-shadow: 0px -0px 10px 5px rgba(240, 238, 113, 0.788);
+}
+
+#player1-container .card .back,
+#player2-container .card .back {
+    background-size: 60%;
+    background-position: center 80%;
+    background-repeat: no-repeat;
+    background-image: url(ASSETS/bato.png);
+}
+
+
+
+#player1-container .card.matched .front,
+#player2-container .card.matched .front {
+    background-image: none;
+    background-color: green;
+}
+
+
+
+.character {
+    position: absolute;
+    top: 76.5%;
+    transform: translateY(-50%);
+    width: 1000px; 
+    height: 1000px;
+    z-index: 0;
+}
+
+.character.attack {
+    /* Add your attack animation styles here */
+}
+
+.character.take-hit {
+    /* Add your take-hit animation styles here */
+}
+
+.character.death {
+    /* Add your death animation styles here */
+}
+
+#character1 {
+    left: -300px;
+    image-rendering: pixelated;
+}
+
+#character2 {
+    right: -300px;
+    transform: translateY(-50%) scaleX(-1);
+}
+
+.combo-counter {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px #000;
+    z-index: 10;
+}
+
+#player1-combo {
+    color:#94EFFF;
+    top: 105%;
+    left: -300px;
+}
+
+#player2-combo {
+    color: #ffcc00;
+    top: 105%;
+    right: -300px;
+}
+
+#play-again-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#play-again {
+    position: absolute;
+    z-index: 9999;
+    padding: 20px 40px;
+    font-size: 50px;
+    cursor: pointer;
+    border: 2px solid #fff;
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+}

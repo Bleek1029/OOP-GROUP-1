@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Card Game</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Press Start 2P & VT323 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Define custom font classes for Tailwind usage */
+        .font-pixel-header { font-family: 'Press Start 2P', cursive; }
+        .font-pixel-body { font-family: 'VT323', monospace; }
+
+        /* Kept existing game styles, removed old .logout-btn styles to prevent conflict */
+    </style>
+</head>
+<body>
+    
+    <!-- Updated Pixelated Tavern Logout Button -->
+    <button onclick="performLogout()" class="
+        absolute top-5 right-5 z-50
+        bg-[#d95763] hover:bg-[#ac3232] active:bg-[#ac3232] active:translate-y-1
+        text-white font-pixel-header text-xs py-3 px-6
+        border-b-8 border-r-8 border-[#5d275d] 
+        border-t-4 border-l-4 border-[#ffcd75]
+        transition-all duration-75 flex items-center gap-3
+        shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]
+    ">
+        <span>Logout</span>
+        <i data-lucide="log-out" class="w-4 h-4"></i>
+    </button>
+
+    <div class="main-container">
+        <img src="CHARACTERS/Wizard Pack/Wizard Pack/p1-idle.gif" class="character" id="character1">
+        <img src="CHARACTERS/Wizard Pack/Wizard Pack/p2-idle.gif" class="character" id="character2">
+        <div class="game-container">
+            <div class="player-container" id="player1-container">
+                <h2 id="player1-heading">Player 1</h2>
+                <div class="health-bar-container">
+                    <div class="health-bar" id="player1-health"></div>
+                </div>
+                <div class="combo-counter" id="player1-combo">COMBO</div>
+                <div class="grid-wrapper">
+                    <div id="player1-grid-border"></div>
+                    <div class="grid-container" id="player1-grid"></div>
+                </div>
+            </div>
+            <div class="player-container" id="player2-container">
+                <h2 id="player2-heading">Player 2</h2>
+                <div class="health-bar-container">
+                    <div class="health-bar" id="player2-health"></div>
+                </div>
+                <div class="combo-counter" id="player2-combo">COMBO</div>
+                <div class="grid-wrapper">
+                    <div id="player2-grid-border"></div>
+                    <div class="grid-container" id="player2-grid"></div>
+                </div>
+            </div>
+        </div>
+        <button id="play-again" style="display: none;">Play Again</button>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        function performLogout() {
+            console.log("Logout initiated...");
+            setTimeout(() => {
+                window.location.href = "logout.php";
+            }, 150);
+        }
+    </script>
+</body>
+</html>
