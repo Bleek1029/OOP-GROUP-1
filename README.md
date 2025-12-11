@@ -1,4 +1,4 @@
-# OOP-GROUP-1 Project overview ⦁ GAME TITLE() -The game its just an old card memory game but with a twist, the twist is that the game is a 2 player making combo with each same card flip. And in order to you need a really good memory so that you can execute more flip combo to attack the other player hp so that you can win the game, you only lose if you if the player continuously don't flip the same card.
+# OOP-GROUP-1 
 
 ⦁ Technology stack -In this game we use html to create the ui of the game, css for the design, javascript for the backend and php for the pillars.
 
